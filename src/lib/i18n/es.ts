@@ -32,6 +32,11 @@ export const es = {
     ctaLabel: "Contactar",
   },
 
+  theme: {
+    switchToDark: "Cambiar a modo oscuro",
+    switchToLight: "Cambiar a modo claro",
+  },
+
   whatsapp: {
     helpLabel: "¿Necesitas ayuda?",
   },
@@ -127,5 +132,24 @@ export const es = {
       submitLabel: "Enviar mensaje",
       successMessage: "¡Gracias! Te contactaremos a la brevedad.",
     },
+    faqHeading: "Preguntas frecuentes",
+    faq: [
+      {
+        question: "Lorem ipsum dolor sit amet?",
+        answer: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      },
+      {
+        question: "Ut enim ad minim veniam?",
+        answer: "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      },
+      {
+        question: "Duis aute irure dolor?",
+        answer: "In reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      },
+      {
+        question: "Excepteur sint occaecat?",
+        answer: "Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      },
+    ],
   },
 } as const;

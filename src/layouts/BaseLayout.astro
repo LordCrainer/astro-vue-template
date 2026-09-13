@@ -3,6 +3,7 @@ import "@styles/global.css";
 import SiteHeader from "@organisms/SiteHeader.vue";
 import SiteFooter from "@organisms/SiteFooter.vue";
 import WhatsAppButton from "@organisms/WhatsAppButton.vue";
+import ThemeToggle from "@organisms/ThemeToggle.vue";
 import { siteContact, siteName } from "@lib/navigation";
 import { t, defaultLocale } from "@lib/i18n";
 
@@ -48,6 +49,15 @@ const organizationJsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+          }
+        } catch (_) {}
+      })();
+    </script>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -83,6 +93,7 @@ const organizationJsonLd = {
     </main>
     <SiteFooter client:visible />
     <WhatsAppButton client:visible />
+    <ThemeToggle client:load />
   </body>
 </html>
 

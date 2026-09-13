@@ -101,7 +101,7 @@ withDefaults(
 .btn--outline {
   background-color: transparent;
   border-color: currentColor;
-  color: var(--brand-secondary);
+  color: var(--text-primary);
 }
 .btn--outline:hover {
   background-color: var(--surface-muted);
@@ -109,7 +109,7 @@ withDefaults(
 
 .btn--ghost {
   background-color: transparent;
-  color: var(--brand-secondary);
+  color: var(--text-primary);
 }
 .btn--ghost:hover {
   background-color: var(--surface-muted);

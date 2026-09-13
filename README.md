@@ -21,7 +21,7 @@ src/
   components/
     atoms/        # no dependency on other components (Button, Heading, Input, Icon, Badge, Logo)
     molecules/    # combine 2-3 atoms (NavItem, CardService, FormField, TeamMemberCard, ResourceCard)
-    organisms/    # full page sections (SiteHeader, SiteFooter, HeroSection, ServicesGrid, ContactForm)
+    organisms/    # full page sections (SiteHeader, SiteFooter, HeroSection, ServicesGrid, ContactForm, ThemeToggle)
     templates/    # page skeletons reused across routes (SimplePageTemplate.astro)
   layouts/
     BaseLayout.astro   # the one HTML shell: <head>, header/footer, global styles
@@ -66,7 +66,7 @@ All copy lives in `src/lib/i18n/`, not scattered across components and pages:
 
 - **Atoms**: no business logic, just props/slots (`BaseButton`, `BaseHeading`, `BaseText`, `BaseInput`, `BaseIcon`, `BaseBadge`, `SiteLogo`).
 - **Molecules**: atoms combined for one purpose (`FormField` = label + `BaseInput`; `CardService`; `NavItem`).
-- **Organisms**: page sections with state or heavier composition (`SiteHeader` with its mobile menu, `ContactForm` with `reactive()`, `HeroSection`).
+- **Organisms**: page sections with state or heavier composition (`SiteHeader` with its mobile menu, `ContactForm` with `reactive()`, `HeroSection`, `ThemeToggle`).
 - **Templates**: reusable content layout with no real data (`SimplePageTemplate.astro`: title + intro + slot).
 - **Pages**: feed real data into a template (`src/pages/*.astro`).
 
@@ -76,7 +76,7 @@ When adding a new component, its level is decided by **how many other pieces it 
 
 1. **Tokens first, no magic values.** Every color/spacing/radius comes from `src/styles/tokens/*.css` as custom properties. Components only consume the semantic layer (`--text-primary`, `--brand-primary`, `--space-4`), never the raw scale directly.
 2. **One global entry point** (`styles/global.css`), imported once from `BaseLayout.astro`. Everything else is `<style scoped>` inside its own component.
-3. **No automatic dark mode on a branded site.** Brand colors are fixed; flipping them with `prefers-color-scheme` breaks contrast (we hit this: navy text on navy background). A real dark mode should redefine tokens deliberately, not algorithmically.
+3. **Dark mode is manual and deliberate, never algorithmic.** Auto-inverting every token via `prefers-color-scheme` broke contrast early on (navy text on navy background). The real dark theme lives under `:root[data-theme="dark"]` in `colors.css`, toggled by `ThemeToggle.vue` and persisted to `localStorage`; only the *ambient page chrome* (page background, muted surfaces, body text, borders) gets dark values — the fixed brand blocks (hero, footer, card bodies) keep navy + white in both themes, since they're self-contained regardless of theme. An inline script in `BaseLayout.astro`'s `<head>` applies the stored theme before first paint to avoid a flash.
 4. **Mobile-first, few breakpoints** (`960px` for desktop nav, `720px`/`1080px` for grids), declared per component rather than in a central "responsive" file.
 5. **Light BEM** for class names inside each component (`.card-service__title`, `.card-service--variant`) — the scoping already comes from Vue/Astro, the prefix just keeps the compiled HTML readable.
 

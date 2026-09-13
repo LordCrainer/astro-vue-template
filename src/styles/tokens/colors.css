@@ -26,6 +26,15 @@
   --color-red-600: #c23a3a;
   --color-green-700: #24784a;
 
+  /* Dark-theme-only tones — kept separate from the light scale above so a
+     designer can tune each theme independently without cross-effects. */
+  --color-red-400-dark: #ff6b6b;
+  --color-slate-300-dark: #aebfc5;
+  --color-orange-250-dark: #ffab6b;
+  --color-slate-500-dark: #114a70;
+  --color-slate-700-dark: #123a56;
+  --color-slate-600-dark: #1c4b6d;
+
   /*
    * Semantic tokens (light theme, default).
    * --brand-primary/--text-brand usan --color-orange-800, no el naranja
@@ -62,7 +71,26 @@
  * This is a branded marketing site: the palette above is the brand, not a
  * "light theme" meant to be inverted by OS preference. --text-inverse is
  * relative to a dark surface (hero, footer, navy cards) regardless of the
- * visitor's OS theme, so it must stay light in both cases. If a real dark
- * mode is wanted later, redefine the semantic tokens deliberately here
- * instead of algorithmically flipping every surface/text pair.
+ * chosen theme, so it must stay light in both. That's why this dark theme
+ * is opt-in via a manual toggle (`data-theme="dark"` on <html>, set by
+ * ThemeToggle.vue) instead of `prefers-color-scheme` — auto-inverting every
+ * token previously produced navy-on-navy text (see git history). Only the
+ * *ambient page chrome* changes here (page background, muted surfaces, body
+ * text, borders); the fixed brand blocks (hero, footer, card bodies) keep
+ * their navy background + white text in both themes, unchanged.
  */
+:root[data-theme="dark"] {
+  --surface-page: var(--color-navy-900);
+  /* Distinct from --brand-secondary (navy-800) on purpose — a secondary
+     button or badge sitting on a muted card must still stand out from it. */
+  --surface-muted: var(--color-slate-500-dark);
+
+  --text-primary: var(--color-neutral-50);
+  --text-secondary: var(--color-slate-300-dark);
+  --text-brand: var(--color-orange-250-dark);
+
+  --border-default: var(--color-slate-700-dark);
+  --border-strong: var(--color-slate-600-dark);
+
+  --state-danger: var(--color-red-400-dark);
+}

@@ -3,6 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
 import ContactForm from "@organisms/ContactForm.vue";
 import ContactInfoItem from "@molecules/ContactInfoItem.vue";
+import BaseHeading from "@atoms/BaseHeading.vue";
 import { siteContact } from "@lib/navigation";
 import { t } from "@lib/i18n";
 
@@ -20,6 +21,22 @@ const content = t();
         client:visible
       />
     </div>
+
+    <section class="faq">
+      <BaseHeading :level="2" size="lg" client:visible>
+        {content.contact.faqHeading}
+      </BaseHeading>
+      <div class="faq__list">
+        {
+          content.contact.faq.map((item) => (
+            <details class="faq__item">
+              <summary class="faq__question">{item.question}</summary>
+              <p class="faq__answer">{item.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
   </SimplePageTemplate>
 </BaseLayout>
 
@@ -35,5 +52,36 @@ const content = t();
       flex-direction: row;
       justify-content: space-between;
     }
+  }
+
+  .faq {
+    margin-top: var(--space-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 42rem;
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq__item {
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--surface-muted);
+  }
+
+  .faq__question {
+    cursor: pointer;
+    font-weight: var(--weight-semibold);
+    color: var(--text-primary);
+  }
+
+  .faq__answer {
+    margin-top: var(--space-3);
+    color: var(--text-secondary);
   }
 </style>

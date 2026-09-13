@@ -53,6 +53,7 @@ a.card-service:hover {
 }
 
 .card-service__body {
+  flex: 1;
   padding: var(--space-4);
   background-color: var(--brand-secondary);
   color: var(--text-inverse);
@@ -61,6 +62,7 @@ a.card-service:hover {
 .card-service__title {
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
+  color: var(--text-inverse);
   margin-bottom: var(--space-1);
 }
 
