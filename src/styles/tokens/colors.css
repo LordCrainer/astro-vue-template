@@ -31,6 +31,7 @@
   --color-red-400-dark: #ff6b6b;
   --color-slate-300-dark: #aebfc5;
   --color-orange-250-dark: #ffab6b;
+  --color-orange-950-dark: #5a3418;
   --color-slate-500-dark: #114a70;
   --color-slate-700-dark: #123a56;
   --color-slate-600-dark: #1c4b6d;
@@ -53,6 +54,10 @@
   --surface-muted: var(--color-neutral-50);
   --surface-inverse: var(--color-navy-800);
   --surface-brand: var(--color-orange-500);
+  /* Tinted chip background (badges) — needs its own dark value because a
+     fixed light tint reads fine on a light page but disappears under
+     dark-mode --text-brand, which lightens to stay readable elsewhere. */
+  --surface-accent-muted: var(--color-orange-100);
 
   --text-primary: var(--color-neutral-900);
   --text-secondary: var(--color-neutral-500);
@@ -84,6 +89,7 @@
   /* Distinct from --brand-secondary (navy-800) on purpose — a secondary
      button or badge sitting on a muted card must still stand out from it. */
   --surface-muted: var(--color-slate-500-dark);
+  --surface-accent-muted: var(--color-orange-950-dark);
 
   --text-primary: var(--color-neutral-50);
   --text-secondary: var(--color-slate-300-dark);

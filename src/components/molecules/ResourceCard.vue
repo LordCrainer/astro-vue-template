@@ -22,7 +22,7 @@ defineProps<{
 .resource-card__term {
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
-  color: var(--brand-secondary);
+  color: var(--text-primary);
   margin-bottom: var(--space-2);
 }
 

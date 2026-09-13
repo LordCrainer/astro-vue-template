@@ -46,7 +46,7 @@ withDefaults(
 .logo__name {
   font-weight: var(--weight-bold);
   font-size: var(--text-lg);
-  color: var(--brand-secondary);
+  color: var(--text-primary);
 }
 
 .logo__tag {

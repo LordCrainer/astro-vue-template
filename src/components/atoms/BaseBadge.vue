@@ -26,7 +26,7 @@ withDefaults(
 }
 
 .badge--brand {
-  background-color: var(--color-orange-100);
+  background-color: var(--surface-accent-muted);
   color: var(--text-brand);
 }
 

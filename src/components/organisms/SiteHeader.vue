@@ -121,7 +121,7 @@ const isMenuOpen = ref(false);
   display: block;
   width: 22px;
   height: 2px;
-  background-color: var(--brand-secondary);
+  background-color: var(--text-primary);
 }
 
 .site-header__mobile-nav {
