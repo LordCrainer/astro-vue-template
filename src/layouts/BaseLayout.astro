@@ -3,7 +3,6 @@ import "@styles/global.css";
 import SiteHeader from "@organisms/SiteHeader.vue";
 import SiteFooter from "@organisms/SiteFooter.vue";
 import WhatsAppButton from "@organisms/WhatsAppButton.vue";
-import ThemeToggle from "@organisms/ThemeToggle.vue";
 import { siteContact, siteName } from "@lib/navigation";
 import { t, defaultLocale } from "@lib/i18n";
 
@@ -93,7 +92,6 @@ const organizationJsonLd = {
     </main>
     <SiteFooter client:visible />
     <WhatsAppButton client:visible />
-    <ThemeToggle client:load />
   </body>
 </html>
 

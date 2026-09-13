@@ -4,6 +4,8 @@ import SiteLogo from "@atoms/SiteLogo.vue";
 import BaseButton from "@atoms/BaseButton.vue";
 import NavItem from "@molecules/NavItem.vue";
 import ContactInfoItem from "@molecules/ContactInfoItem.vue";
+import ThemeToggle from "@organisms/ThemeToggle.vue";
+import SidebarMenu from "@organisms/SidebarMenu.vue";
 import { primaryNav, siteContact } from "@lib/navigation";
 import { t } from "@lib/i18n";
 
@@ -44,13 +46,13 @@ const isMenuOpen = ref(false);
           :href="siteContact.phoneHref"
         />
         <BaseButton href="#contacto" size="md">{{ content.header.ctaLabel }}</BaseButton>
+        <ThemeToggle />
         <button
           type="button"
           class="site-header__toggle"
           :aria-expanded="isMenuOpen"
-          aria-controls="mobile-nav"
           :aria-label="content.a11y.openMenu"
-          @click="isMenuOpen = !isMenuOpen"
+          @click="isMenuOpen = true"
         >
           <span />
           <span />
@@ -59,22 +61,30 @@ const isMenuOpen = ref(false);
       </div>
     </div>
 
-    <nav
-      v-if="isMenuOpen"
-      id="mobile-nav"
-      class="site-header__mobile-nav"
-      :aria-label="content.a11y.mobileNav"
-    >
-      <NavItem
-        v-for="link in primaryNav"
-        :key="link.href"
-        :href="link.href"
-        :active="link.href === currentPath"
-        @click="isMenuOpen = false"
-      >
-        {{ content.nav[link.key] }}
-      </NavItem>
-    </nav>
+    <SidebarMenu v-model="isMenuOpen" title-id="mobile-nav-title" side="right">
+      <h2 id="mobile-nav-title" class="visually-hidden">{{ content.a11y.mobileNav }}</h2>
+      <nav class="site-header__mobile-nav" :aria-label="content.a11y.mobileNav">
+        <NavItem
+          v-for="link in primaryNav"
+          :key="link.href"
+          :href="link.href"
+          :active="link.href === currentPath"
+          @click="isMenuOpen = false"
+        >
+          {{ content.nav[link.key] }}
+        </NavItem>
+      </nav>
+
+      <ContactInfoItem
+        class="site-header__mobile-phone"
+        :label="content.header.contactLabel"
+        :value="siteContact.phoneValue"
+        :href="siteContact.phoneHref"
+      />
+      <BaseButton href="#contacto" size="md" @click="isMenuOpen = false">
+        {{ content.header.ctaLabel }}
+      </BaseButton>
+    </SidebarMenu>
   </header>
 </template>
 
@@ -128,9 +138,12 @@ const isMenuOpen = ref(false);
 .site-header__mobile-nav {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-5) var(--space-5);
-  border-top: 1px solid var(--border-default);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.site-header__mobile-phone {
+  margin-bottom: var(--space-4);
 }
 
 @media (min-width: 960px) {

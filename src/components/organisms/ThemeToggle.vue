@@ -31,7 +31,7 @@ function toggle() {
     :aria-pressed="isDark"
     @click="toggle"
   >
-    <BaseIcon size="md">
+    <BaseIcon size="sm">
       <svg v-if="isDark" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
       </svg>
@@ -45,28 +45,25 @@ function toggle() {
 
 <style scoped>
 .theme-toggle {
-  position: fixed;
-  top: calc(var(--space-10) + var(--space-4));
-  right: var(--space-5);
-  z-index: 30;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  padding: var(--space-2);
   border-radius: var(--radius-full);
-  background-color: var(--surface-page);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-lg);
-  opacity: 0.7;
+  color: var(--text-secondary);
+  opacity: 0.6;
   transition:
     opacity var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast),
     transform var(--transition-fast);
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus-visible {
   opacity: 1;
+  color: var(--text-brand);
+  background-color: var(--surface-muted);
 }
 
 .theme-toggle:active {

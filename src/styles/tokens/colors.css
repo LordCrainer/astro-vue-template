@@ -70,6 +70,10 @@
   --state-danger: var(--color-red-600);
   --state-success: var(--color-green-700);
   --focus-ring: var(--color-orange-500);
+
+  /* Scrim behind Dialog/Sidebar — flat black works on both themes since it
+     only needs to dim the page behind it, not match the surface palette. */
+  --overlay-scrim: rgba(5, 10, 15, 0.55);
 }
 
 /**

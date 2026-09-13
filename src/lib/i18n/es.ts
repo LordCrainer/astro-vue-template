@@ -25,6 +25,8 @@ export const es = {
     mobileNav: "Principal (móvil)",
     footerNav: "Pie de página",
     openMenu: "Abrir menú de navegación",
+    closeMenu: "Cerrar menú de navegación",
+    closeDialog: "Cerrar",
   },
 
   header: {

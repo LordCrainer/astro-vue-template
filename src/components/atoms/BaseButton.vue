@@ -9,12 +9,17 @@ withDefaults(
     href?: string;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
+    /** Botón cuadrado sin padding horizontal extra, para un solo BaseIcon (cerrar, hamburguesa, etc). */
+    iconOnly?: boolean;
+    /** Requerido cuando iconOnly es true y no hay texto visible para lectores de pantalla. */
+    ariaLabel?: string;
   }>(),
   {
     variant: "primary",
     size: "md",
     type: "button",
     disabled: false,
+    iconOnly: false,
   },
 );
 </script>
@@ -24,7 +29,8 @@ withDefaults(
     v-if="href"
     :href="href"
     class="btn"
-    :class="[`btn--${variant}`, `btn--${size}`]"
+    :class="[`btn--${variant}`, `btn--${size}`, { 'btn--icon-only': iconOnly }]"
+    :aria-label="ariaLabel"
   >
     <slot />
   </a>
@@ -33,7 +39,8 @@ withDefaults(
     :type="type"
     :disabled="disabled"
     class="btn"
-    :class="[`btn--${variant}`, `btn--${size}`]"
+    :class="[`btn--${variant}`, `btn--${size}`, { 'btn--icon-only': iconOnly }]"
+    :aria-label="ariaLabel"
   >
     <slot />
   </button>
@@ -79,6 +86,17 @@ withDefaults(
 .btn--lg {
   padding: var(--space-4) var(--space-6);
   font-size: var(--text-lg);
+}
+
+/* Icon-only override — same hit areas as the size scale above, but square */
+.btn--icon-only.btn--sm {
+  padding: var(--space-2);
+}
+.btn--icon-only.btn--md {
+  padding: var(--space-3);
+}
+.btn--icon-only.btn--lg {
+  padding: var(--space-4);
 }
 
 /* Variants */
