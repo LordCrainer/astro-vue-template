@@ -1,0 +1,18 @@
+# Carlos Garcia
+
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Descripción breve
+> del sitio pensada para agentes de IA — reemplazar por el resumen real.
+
+## Páginas
+
+- [Inicio](/): resumen general.
+- [Nosotros](/nosotros): misión y visión.
+- [Servicios](/servicios): listado de servicios.
+- [Equipo](/equipo): integrantes del equipo.
+- [Recursos](/recursos): preguntas frecuentes / glosario.
+- [Contacto](/contacto): formulario de contacto.
+
+## Notas para agentes
+
+- El contenido de servicios y recursos es texto plano en el HTML (sin
+  JavaScript requerido para leerlo).

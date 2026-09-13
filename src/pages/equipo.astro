@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
+import TeamMemberCard from "@molecules/TeamMemberCard.vue";
+---
+
+<BaseLayout title="Equipo" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+  <SimplePageTemplate
+    title="Nuestro equipo"
+    intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  >
+    <div class="team-list">
+      <TeamMemberCard
+        name="Nombre Apellido"
+        jobTitle="Cargo o rol"
+        href="/equipo/nombre-apellido"
+        client:visible
+      >
+        Lorem ipsum · Dolor sit amet · Consectetur adipiscing
+      </TeamMemberCard>
+      <TeamMemberCard
+        name="Nombre Apellido"
+        jobTitle="Cargo o rol"
+        client:visible
+      >
+        Sed do eiusmod · Tempor incididunt · Ut labore et dolore
+      </TeamMemberCard>
+    </div>
+  </SimplePageTemplate>
+</BaseLayout>
+
+<style>
+  .team-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+</style>

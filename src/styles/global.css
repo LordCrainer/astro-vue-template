@@ -1,0 +1,9 @@
+/**
+ * Single global entry point — import this once from the root layout only.
+ * Every component/page below relies on these tokens but should never
+ * re-import this file.
+ */
+@import "./tokens/index.css";
+@import "./base/reset.css";
+@import "./base/global.css";
+@import "./utilities/layout.css";

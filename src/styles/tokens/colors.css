@@ -1,0 +1,68 @@
+/**
+ * Color tokens. Raw scales stay private (--color-*); components/utilities
+ * should only ever reference the semantic layer (--surface-*, --text-*,
+ * --brand-*, --border-*) so a palette swap never touches component files.
+ */
+:root {
+  /* Raw brand scale — extraído del logo CAGM (navy #08365a + naranja #fc6701) */
+  --color-navy-900: #052840;
+  --color-navy-800: #08365a;
+  --color-navy-700: #12507f;
+  --color-orange-900: #8a3d00;
+  --color-orange-800: #a84600;
+  --color-orange-500: #fc6701;
+  --color-orange-300: #ff9a52;
+  --color-orange-100: #ffe4cf;
+
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f6f8f9;
+  --color-neutral-100: #eef1f2;
+  --color-neutral-300: #cdd5d8;
+  --color-neutral-500: #5a6a70;
+  --color-neutral-700: #3c4749;
+  --color-neutral-900: #14191a;
+
+  /* -600/-700 shades used (not -500) so state colors keep 4.5:1+ as text on white */
+  --color-red-600: #c23a3a;
+  --color-green-700: #24784a;
+
+  /*
+   * Semantic tokens (light theme, default).
+   * --brand-primary/--text-brand usan --color-orange-800, no el naranja
+   * vibrante del logo (--color-orange-500, ≈2.97:1 sobre blanco): ese falla
+   * WCAG AA como texto o como botón con texto blanco. orange-800 despeja
+   * 4.5:1+ en ambos roles. El naranja vibrante queda solo para rellenos
+   * decorativos grandes (franja del hero, foco de teclado), nunca para texto
+   * ni como fondo con texto encima.
+   */
+  --brand-primary: var(--color-orange-800);
+  --brand-primary-strong: var(--color-orange-900);
+  --brand-secondary: var(--color-navy-800);
+  --brand-accent: var(--color-orange-300);
+
+  --surface-page: var(--color-neutral-0);
+  --surface-muted: var(--color-neutral-50);
+  --surface-inverse: var(--color-navy-800);
+  --surface-brand: var(--color-orange-500);
+
+  --text-primary: var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-500);
+  --text-inverse: var(--color-neutral-0);
+  --text-brand: var(--color-orange-800);
+
+  --border-default: var(--color-neutral-100);
+  --border-strong: var(--color-neutral-300);
+
+  --state-danger: var(--color-red-600);
+  --state-success: var(--color-green-700);
+  --focus-ring: var(--color-orange-500);
+}
+
+/**
+ * This is a branded marketing site: the palette above is the brand, not a
+ * "light theme" meant to be inverted by OS preference. --text-inverse is
+ * relative to a dark surface (hero, footer, navy cards) regardless of the
+ * visitor's OS theme, so it must stay light in both cases. If a real dark
+ * mode is wanted later, redefine the semantic tokens deliberately here
+ * instead of algorithmically flipping every surface/text pair.
+ */

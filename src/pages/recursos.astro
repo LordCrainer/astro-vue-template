@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
+import ResourceCard from "@molecules/ResourceCard.vue";
+import { resources } from "@lib/data/resources";
+---
+
+<BaseLayout
+  title="Recursos"
+  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+>
+  <SimplePageTemplate
+    title="Recursos"
+    intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  >
+    <div class="resources-grid">
+      {
+        resources.map((entry) => (
+          <ResourceCard
+            term={entry.term}
+            definition={entry.definition}
+            client:visible
+          />
+        ))
+      }
+    </div>
+  </SimplePageTemplate>
+</BaseLayout>
+
+<style>
+  .resources-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 720px) {
+    .resources-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

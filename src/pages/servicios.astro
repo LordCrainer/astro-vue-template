@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
+import ServicesGrid from "@organisms/ServicesGrid.vue";
+import { services } from "@lib/data/services";
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Servicios de desarrollo de software: frontend, backend, integraciones y mantenimiento."
+>
+  <SimplePageTemplate
+    title="Nuestros servicios"
+    intro="Desde la idea hasta producción: desarrollo, integro y mantengo software a medida."
+  >
+    <ServicesGrid services={services} client:visible />
+  </SimplePageTemplate>
+</BaseLayout>

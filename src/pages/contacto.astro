@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
+import ContactForm from "@organisms/ContactForm.vue";
+import ContactInfoItem from "@molecules/ContactInfoItem.vue";
+import { siteContact } from "@lib/navigation";
+---
+
+<BaseLayout title="Contacto" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+  <SimplePageTemplate
+    title="Contacto"
+    intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  >
+    <div class="contact-layout">
+      <ContactForm client:load />
+      <ContactInfoItem
+        label={siteContact.phoneLabel}
+        value={siteContact.phoneValue}
+        href={siteContact.phoneHref}
+        client:visible
+      />
+    </div>
+  </SimplePageTemplate>
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

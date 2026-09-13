@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
+import BaseHeading from "@atoms/BaseHeading.vue";
+import BaseText from "@atoms/BaseText.vue";
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+>
+  <SimplePageTemplate
+    title="Lorem ipsum dolor sit amet"
+    intro="Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  >
+    <div class="values">
+      <article class="values__card">
+        <BaseHeading :level="2" size="sm" tone="brand" client:visible>
+          Misión
+        </BaseHeading>
+        <BaseText client:visible>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </BaseText>
+      </article>
+      <article class="values__card values__card--inverse">
+        <BaseHeading :level="2" size="sm" tone="inverse" client:visible>
+          Visión
+        </BaseHeading>
+        <BaseText tone="inverse" client:visible>
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
+        </BaseText>
+      </article>
+    </div>
+  </SimplePageTemplate>
+</BaseLayout>
+
+<style>
+  .values {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 40rem;
+  }
+
+  .values__card {
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .values__card--inverse {
+    background-color: var(--brand-secondary);
+  }
+</style>
