@@ -1,98 +1,110 @@
-# Plantilla Astro + Vue
+# Astro + Vue Template
 
-Stack: **Astro** (páginas/routing/SSG) + **Vue 3** (islas interactivas) + **Vite** (vía Astro) + **Bun** (runtime/paquetes).
+**Astro** (pages/routing/SSG) + **Vue 3** (interactive islands) + **Vite** (via Astro) + **Bun** (runtime/package manager).
 
-Todo el contenido de texto es **lorem ipsum de ejemplo**: es un punto de partida reutilizable, no un sitio terminado. El nombre de marca, teléfono, textos y JSON-LD están centralizados para poder reemplazarlos rápido en un proyecto nuevo (ver "Cómo reutilizar esta plantilla" más abajo).
+All copy is **placeholder lorem ipsum** — this is a reusable starting point, not a finished site. Brand name, contact info, text content, and JSON-LD are all centralized so a new project can swap them in one pass (see "Reusing this template" below).
 
-## Comandos
+## Commands
 
 ```bash
 bun install
-bun run dev       # servidor de desarrollo
+bun run dev       # dev server
 bun run check     # type-check (astro check)
-bun run build     # check + build de producción a dist/
-bun run preview   # sirve dist/ localmente
+bun run build     # check + production build to dist/
+bun run preview   # serve dist/ locally
 ```
 
-## Estructura de carpetas
+## Folder structure
 
 ```
 src/
   components/
-    atoms/        # piezas sin dependencias de otros componentes (Button, Heading, Input, Icon, Badge, Logo)
-    molecules/    # combinan 2-3 átomos (NavItem, CardService, FormField, TeamMemberCard, ResourceCard)
-    organisms/    # secciones completas de página (SiteHeader, SiteFooter, HeroSection, ServicesGrid, ContactForm)
-    templates/    # esqueletos de página reutilizables entre rutas (SimplePageTemplate.astro)
+    atoms/        # no dependency on other components (Button, Heading, Input, Icon, Badge, Logo)
+    molecules/    # combine 2-3 atoms (NavItem, CardService, FormField, TeamMemberCard, ResourceCard)
+    organisms/    # full page sections (SiteHeader, SiteFooter, HeroSection, ServicesGrid, ContactForm)
+    templates/    # page skeletons reused across routes (SimplePageTemplate.astro)
   layouts/
-    BaseLayout.astro   # shell HTML único: <head>, header/footer, estilos globales
-  pages/           # una ruta por archivo (index, nosotros, servicios, equipo, recursos, contacto)
+    BaseLayout.astro   # the one HTML shell: <head>, header/footer, global styles
+  pages/           # one route per file (index, nosotros, servicios, equipo, recursos, contacto)
   lib/
-    navigation.ts  # nombre de marca, menú y datos de contacto — única fuente de verdad
-    data/          # contenido estático tipado (services.ts, resources.ts)
+    navigation.ts  # brand identity (name, hrefs, phone) — not copy, doesn't change per locale
+    i18n/          # all site copy, shaped to support more than one locale (see "i18n" below)
   styles/
-    tokens/        # variables CSS: colors.css, typography.css, spacing.css
-    base/          # reset.css + estilos globales de elementos HTML
-    utilities/     # clases utilitarias mínimas (.container, .stack, .cluster)
-    global.css     # único punto de entrada — se importa una sola vez desde BaseLayout
+    tokens/        # CSS custom properties: colors.css, typography.css, spacing.css
+    base/          # reset.css + global element styles
+    utilities/     # a handful of layout utilities (.container, .stack, .cluster)
+    global.css     # single entry point — imported once, from BaseLayout only
 ```
 
-Convención: **cada componente es una carpeta modular por sí mismo** (un `.vue`/`.astro` con su propio `<style scoped>`), aunque el sitio tenga pocas páginas. Nada de una hoja CSS gigante por página.
+Convention: **every component is its own self-contained unit** (a `.vue`/`.astro` file with its own `<style scoped>`), even though the site only has a few pages. No giant shared stylesheet per page.
 
-## Cómo reutilizar esta plantilla en un proyecto nuevo
+## Reusing this template
 
-1. `src/lib/navigation.ts` → cambiar `siteName`, `siteTagline`, `primaryNav` y `siteContact` (teléfono/WhatsApp). El logo, el footer, el `<title>` y el JSON-LD lo leen desde acá, no hay que tocarlos aparte.
-2. `src/styles/tokens/colors.css` → cambiar la escala cruda (`--color-navy-*`, `--color-orange-*`) por los colores de la marca real. Los componentes solo tocan la capa semántica, así que un cambio de paleta se hace en un solo archivo — ver el razonamiento de contraste ya comentado ahí.
-3. `public/logo-cagm.png` → reemplazar por el logo real del proyecto (mismo nombre de archivo, o actualizar las referencias en `SiteLogo.vue` y `BaseLayout.astro` si cambia el nombre).
-4. `astro.config.mjs` → cambiar `SITE_URL` por el dominio real (afecta sitemap, canonical y OG).
-5. `public/robots.txt` → actualizar la URL del sitemap con el mismo dominio.
-6. `public/og-default.jpg` → hoy compone el logo sobre el fondo de marca (1200×630) — regenerar si cambia el logo o la paleta.
-7. `src/layouts/BaseLayout.astro` → ajustar el `"@type"` del JSON-LD según el proyecto (`Organization`, `Person`, `ProfessionalService`, `LocalBusiness`, etc.).
-8. `src/lib/data/services.ts` y `resources.ts` → reemplazar el contenido de ejemplo por el real.
-9. Los textos de ejemplo específicos de cada página están directamente en cada `src/pages/*.astro`.
+1. `src/lib/navigation.ts` → change `siteName`, `primaryNav` (hrefs), and `siteContact` (phone/WhatsApp). The logo, footer, `<title>`, and JSON-LD all read from here.
+2. `src/lib/i18n/es.ts` → replace the placeholder copy with the real thing. It's the only file to touch for text changes — no component or page has loose strings (see "i18n" below).
+3. `src/styles/tokens/colors.css` → swap the raw scale (`--color-navy-*`, `--color-orange-*`) for the real brand colors. Components only ever touch the semantic layer, so a palette change is a one-file edit — the contrast reasoning is commented right there.
+4. `public/logo-cagm.png` → replace with the real logo (keep the filename, or update the references in `SiteLogo.vue` and `BaseLayout.astro`).
+5. `astro.config.mjs` → set `SITE_URL` to the real domain (drives the sitemap, canonical URLs, and OG tags).
+6. `public/robots.txt` → update the sitemap URL to match.
+7. `public/og-default.jpg` → currently the logo composited over the brand background (1200×630) — regenerate if the logo or palette changes.
+8. `src/layouts/BaseLayout.astro` → adjust the JSON-LD `"@type"` for the project (`Organization`, `Person`, `ProfessionalService`, `LocalBusiness`, etc.).
 
-## Diseño atómico
+## i18n
 
-- **Atoms**: sin lógica de negocio, solo props/slots. Sirven de base visual (`BaseButton`, `BaseHeading`, `BaseText`, `BaseInput`, `BaseIcon`, `BaseBadge`, `SiteLogo`).
-- **Molecules**: combinan átomos para un propósito concreto (`FormField` = label + `BaseInput`; `CardService`; `NavItem`).
-- **Organisms**: piezas de página con estado o composición mayor (`SiteHeader` con menú móvil, `ContactForm` con `reactive()`, `HeroSection`).
-- **Templates**: layout de contenido reutilizable sin datos reales (`SimplePageTemplate.astro`: título + intro + slot).
-- **Pages**: inyectan datos reales en un template (`src/pages/*.astro`).
+All copy lives in `src/lib/i18n/`, not scattered across components and pages:
 
-Al añadir un componente nuevo, decide su nivel por **cuántas otras piezas depende**, no por dónde "se ve mejor".
+- `es.ts` is the full dictionary (the only locale today). Every page/component does `const content = t()` and reads from it.
+- `index.ts` registers the available locales (`locales = { es }`), and exports the `Locale` type and the `t(locale?)` helper.
+- `navigation.ts` deliberately stays **outside** `i18n/`: brand name, routes, and phone number aren't copy that changes with the language.
 
-## CSS: buenas prácticas aplicadas
+**To add English later:**
+1. Create `src/lib/i18n/en.ts` with the same shape as `es.ts` (TypeScript will flag any missing key, thanks to `es.ts`'s `as const`).
+2. Register it in `index.ts`: `export const locales = { es, en } as const;`.
+3. Only then does it make sense to add locale-prefixed routes (Astro's native `astro:i18n`: `/es/...`, `/en/...`) and, if automatic detection is wanted, a middleware that reads `Accept-Language` on the homepage and redirects. That's intentionally not built yet — there's no point wiring up routing before there's real content in more than one language.
 
-1. **Tokens primero, nunca valores mágicos.** Todo color/espaciado/radio sale de `src/styles/tokens/*.css` como custom properties. Los componentes solo consumen la capa semántica (`--text-primary`, `--brand-primary`, `--space-4`), nunca la escala cruda (`--color-orange-500`) directamente.
-2. **Un solo entrypoint global** (`styles/global.css`), importado una única vez en `BaseLayout.astro`. Todo lo demás es `<style scoped>` dentro del propio componente — evita cascadas globales impredecibles.
-3. **Sin "modo oscuro automático" en un sitio de marca.** Los colores de marca (navy/naranja, del logo real) son fijos; invertirlos con `prefers-color-scheme` rompe el contraste (ya se vio en pruebas: texto navy sobre fondo navy). Si se quiere dark mode real, se define explícitamente token por token, no algorítmicamente.
-4. **Mobile-first con pocos breakpoints** (`960px` para nav de escritorio, `720px`/`1080px` para grids). Cada componente declara sus propios breakpoints; no hay un archivo central de "responsive".
-5. **BEM ligero** para nombrar clases dentro de cada componente (`.card-service__title`, `.card-service--variant`), útil porque el scope ya lo da Vue/Astro — el prefijo evita ambigüedad al leer el HTML compilado.
+## Atomic design
 
-## Alias de rutas
+- **Atoms**: no business logic, just props/slots (`BaseButton`, `BaseHeading`, `BaseText`, `BaseInput`, `BaseIcon`, `BaseBadge`, `SiteLogo`).
+- **Molecules**: atoms combined for one purpose (`FormField` = label + `BaseInput`; `CardService`; `NavItem`).
+- **Organisms**: page sections with state or heavier composition (`SiteHeader` with its mobile menu, `ContactForm` with `reactive()`, `HeroSection`).
+- **Templates**: reusable content layout with no real data (`SimplePageTemplate.astro`: title + intro + slot).
+- **Pages**: feed real data into a template (`src/pages/*.astro`).
 
-Configurados en `tsconfig.json` y usados en todo el código: `@/`, `@atoms/`, `@molecules/`, `@organisms/`, `@templates/`, `@layouts/`, `@styles/`, `@lib/`.
+When adding a new component, its level is decided by **how many other pieces it depends on**, not by where it looks best.
+
+## CSS practices
+
+1. **Tokens first, no magic values.** Every color/spacing/radius comes from `src/styles/tokens/*.css` as custom properties. Components only consume the semantic layer (`--text-primary`, `--brand-primary`, `--space-4`), never the raw scale directly.
+2. **One global entry point** (`styles/global.css`), imported once from `BaseLayout.astro`. Everything else is `<style scoped>` inside its own component.
+3. **No automatic dark mode on a branded site.** Brand colors are fixed; flipping them with `prefers-color-scheme` breaks contrast (we hit this: navy text on navy background). A real dark mode should redefine tokens deliberately, not algorithmically.
+4. **Mobile-first, few breakpoints** (`960px` for desktop nav, `720px`/`1080px` for grids), declared per component rather than in a central "responsive" file.
+5. **Light BEM** for class names inside each component (`.card-service__title`, `.card-service--variant`) — the scoping already comes from Vue/Astro, the prefix just keeps the compiled HTML readable.
+
+## Path aliases
+
+Configured in `tsconfig.json`, used throughout: `@/`, `@atoms/`, `@molecules/`, `@organisms/`, `@templates/`, `@layouts/`, `@styles/`, `@lib/`.
 
 ## SEO
 
-- `astro.config.mjs` define `site` (⚠️ **hoy es un placeholder** `https://example.com`) y usa `@astrojs/sitemap`, que genera `sitemap-index.xml` en cada build.
-- `public/robots.txt` apunta a ese sitemap (actualizar la URL junto con `site`).
-- `BaseLayout.astro` genera por página: `<title>`, meta description, canonical, Open Graph, Twitter Card y un bloque JSON-LD `Organization` (schema.org, de ejemplo). Cada `.astro` de página puede pasar `title`, `description`, `image` y `noindex` como props.
-- `public/og-default.jpg` compone el logo (`public/logo-cagm.png`) sobre el fondo de marca (1200×630) para que las meta tags no apunten a un 404 ni a un color plano sin identidad.
+- `astro.config.mjs` sets `site` (⚠️ **currently a placeholder**, `https://example.com`) and uses `@astrojs/sitemap`, which generates `sitemap-index.xml` on every build.
+- `public/robots.txt` points to that sitemap — update the URL alongside `site`.
+- `BaseLayout.astro` generates, per page: `<title>`, meta description, canonical, Open Graph, Twitter Card, and a JSON-LD `Organization` block (schema.org, as an example). Each page can pass `title`, `description`, `image`, and `noindex` as props.
+- `public/og-default.jpg` composites the logo over the brand background so social previews never hit a 404 or a flat, brandless color.
 
-## Accesibilidad y "Best Practices" (Lighthouse)
+## Accessibility & Lighthouse "Best Practices"
 
-- Link "Saltar al contenido" (`.skip-link` en `BaseLayout.astro`), visible solo con foco de teclado.
-- Paleta de color auditada con ratio de contraste WCAG AA (4.5:1 para texto normal): `--brand-primary`, `--text-brand`, `--state-danger` y `--state-success` usan tonos más oscuros que la escala "cruda" original porque los tonos claros (`teal-500`, `green-500`, `red-500`) no pasaban el ratio como texto o como fondo de botón con texto blanco. El razonamiento completo está comentado en `src/styles/tokens/colors.css`.
-- `public/_headers` agrega cabeceras de seguridad (CSP, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`). **Formato Netlify/Cloudflare Pages** — si el hosting final es Vercel u otro, hay que migrar el mismo contenido a `vercel.json` (`headers`) o el mecanismo equivalente.
-- Sin `v-html`/`set:html` sobre datos externos, sin dependencias de CDNs de terceros, sin errores de consola verificado en Chrome.
+- A "Skip to content" link (`.skip-link` in `BaseLayout.astro`), visible only on keyboard focus.
+- The color palette is WCAG AA-audited (4.5:1 for normal text) — see the reasoning in `src/styles/tokens/colors.css`.
+- `public/_headers` adds security headers (CSP, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`). **Netlify/Cloudflare Pages format** — port the same rules to `vercel.json` for Vercel or the equivalent on another host.
+- No `v-html`/`set:html` on external data, no third-party CDN dependencies, no console errors (verified in Chrome).
 
 ## Agentic browsing
 
-- `public/llms.txt` describe el sitio y sus rutas en texto plano para agentes de IA (convención emergente, similar a `robots.txt`).
-- El HTML es server-rendered (Astro), así que un agente que solo lee el DOM ve el contenido real sin ejecutar JS — a diferencia de un SPA client-rendered.
-- El JSON-LD en cada página refuerza esto: le da a cualquier consumidor automatizado (buscador o agente) la entidad y el teléfono sin tener que inferirlos del texto.
+- `public/llms.txt` describes the site and its routes in plain text for AI agents (an emerging convention, similar to `robots.txt`).
+- The HTML is server-rendered (Astro), so an agent reading only the DOM sees the real content without executing JS — unlike a client-rendered SPA.
+- The JSON-LD on every page reinforces this: it hands an automated consumer (search engine or agent) the entity and phone number without inferring them from prose.
 
-## Próximos pasos sugeridos
+## Suggested next steps
 
-- Añadir imágenes reales (`src/assets/images`) y usar `astro:assets` para optimización.
-- Si `services.ts`/`resources.ts` crecen mucho, migrar a *content collections* de Astro en vez de un array TS — es también el paso previo natural para conectar un CMS headless (Decap CMS, Keystatic, etc.), ya que ambos escriben Markdown/YAML que Content Collections consume directamente.
+- Add real images (`src/assets/images`) and use `astro:assets` for optimization.
+- If `src/lib/i18n/es.ts`'s `services`/`resources` arrays grow large, migrate them to Astro content collections — also the natural stepping stone to a headless CMS (Decap CMS, Keystatic, etc.), since both write Markdown/YAML that content collections consume directly.

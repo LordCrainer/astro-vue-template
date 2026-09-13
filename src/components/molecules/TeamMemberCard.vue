@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import BaseButton from "@atoms/BaseButton.vue";
+import { t } from "@lib/i18n";
+
+const content = t();
 
 withDefaults(
   defineProps<{
@@ -25,7 +28,7 @@ withDefaults(
         <slot />
       </div>
       <BaseButton v-if="href" :href="href" variant="secondary" size="sm">
-        Ver perfil
+        {{ content.team.viewProfileLabel }}
       </BaseButton>
     </div>
   </article>

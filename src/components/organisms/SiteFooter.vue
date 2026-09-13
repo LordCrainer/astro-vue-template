@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { primaryNav, siteContact, siteName } from "@lib/navigation";
+import { t } from "@lib/i18n";
 
+const content = t();
 const year = new Date().getFullYear();
 </script>
 
@@ -8,9 +10,9 @@ const year = new Date().getFullYear();
   <footer class="site-footer">
     <div class="container site-footer__row">
       <p class="site-footer__brand">{{ siteName }}</p>
-      <nav class="site-footer__nav" aria-label="Pie de página">
+      <nav class="site-footer__nav" :aria-label="content.a11y.footerNav">
         <a v-for="link in primaryNav" :key="link.href" :href="link.href">
-          {{ link.label }}
+          {{ content.nav[link.key] }}
         </a>
       </nav>
       <a :href="siteContact.phoneHref" class="site-footer__phone">
@@ -18,7 +20,7 @@ const year = new Date().getFullYear();
       </a>
     </div>
     <p class="site-footer__legal">
-      © {{ year }} {{ siteName }}. Todos los derechos reservados.
+      © {{ year }} {{ siteName }}. {{ content.footer.legalSuffix }}
     </p>
   </footer>
 </template>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { siteName, siteTagline } from "@lib/navigation";
+import { siteName } from "@lib/navigation";
+import { t } from "@lib/i18n";
+
+const content = t();
 
 withDefaults(
   defineProps<{
@@ -16,7 +19,7 @@ withDefaults(
     <img class="logo__mark" src="/logo-cagm.png" alt="" width="40" height="40" />
     <span class="logo__text">
       <span class="logo__name">{{ siteName }}</span>
-      <span class="logo__tag">{{ siteTagline }}</span>
+      <span class="logo__tag">{{ content.site.tagline }}</span>
     </span>
   </a>
 </template>

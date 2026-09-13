@@ -9,7 +9,7 @@ export interface Service {
 }
 
 defineProps<{
-  services: Service[];
+  services: readonly Service[];
 }>();
 </script>
 

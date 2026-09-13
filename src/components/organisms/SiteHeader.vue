@@ -5,6 +5,7 @@ import BaseButton from "@atoms/BaseButton.vue";
 import NavItem from "@molecules/NavItem.vue";
 import ContactInfoItem from "@molecules/ContactInfoItem.vue";
 import { primaryNav, siteContact } from "@lib/navigation";
+import { t } from "@lib/i18n";
 
 withDefaults(
   defineProps<{
@@ -15,6 +16,7 @@ withDefaults(
   },
 );
 
+const content = t();
 const isMenuOpen = ref(false);
 </script>
 
@@ -23,31 +25,31 @@ const isMenuOpen = ref(false);
     <div class="container site-header__row">
       <SiteLogo />
 
-      <nav class="site-header__nav" aria-label="Principal">
+      <nav class="site-header__nav" :aria-label="content.a11y.mainNav">
         <NavItem
           v-for="link in primaryNav"
           :key="link.href"
           :href="link.href"
           :active="link.href === currentPath"
         >
-          {{ link.label }}
+          {{ content.nav[link.key] }}
         </NavItem>
       </nav>
 
       <div class="site-header__actions">
         <ContactInfoItem
           class="site-header__phone"
-          :label="siteContact.phoneLabel"
+          :label="content.header.contactLabel"
           :value="siteContact.phoneValue"
           :href="siteContact.phoneHref"
         />
-        <BaseButton href="/contacto" size="md">Citas</BaseButton>
+        <BaseButton href="/contacto" size="md">{{ content.header.ctaLabel }}</BaseButton>
         <button
           type="button"
           class="site-header__toggle"
           :aria-expanded="isMenuOpen"
           aria-controls="mobile-nav"
-          aria-label="Abrir menú de navegación"
+          :aria-label="content.a11y.openMenu"
           @click="isMenuOpen = !isMenuOpen"
         >
           <span />
@@ -61,7 +63,7 @@ const isMenuOpen = ref(false);
       v-if="isMenuOpen"
       id="mobile-nav"
       class="site-header__mobile-nav"
-      aria-label="Principal (móvil)"
+      :aria-label="content.a11y.mobileNav"
     >
       <NavItem
         v-for="link in primaryNav"
@@ -69,7 +71,7 @@ const isMenuOpen = ref(false);
         :href="link.href"
         :active="link.href === currentPath"
       >
-        {{ link.label }}
+        {{ content.nav[link.key] }}
       </NavItem>
     </nav>
   </header>

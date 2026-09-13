@@ -2,6 +2,9 @@
 import { reactive, ref } from "vue";
 import FormField from "@molecules/FormField.vue";
 import BaseButton from "@atoms/BaseButton.vue";
+import { t } from "@lib/i18n";
+
+const content = t().contact.form;
 
 const form = reactive({
   name: "",
@@ -19,19 +22,19 @@ function handleSubmit() {
 
 <template>
   <form v-if="!submitted" class="contact-form stack" @submit.prevent="handleSubmit">
-    <FormField id="name" v-model="form.name" label="Nombre" required />
+    <FormField id="name" v-model="form.name" :label="content.nameLabel" required />
     <FormField
       id="phone"
       v-model="form.phone"
-      label="Teléfono"
+      :label="content.phoneLabel"
       type="tel"
       required
     />
-    <FormField id="email" v-model="form.email" label="Correo" type="email" />
-    <BaseButton type="submit" size="lg">Enviar mensaje</BaseButton>
+    <FormField id="email" v-model="form.email" :label="content.emailLabel" type="email" />
+    <BaseButton type="submit" size="lg">{{ content.submitLabel }}</BaseButton>
   </form>
   <p v-else class="contact-form__success">
-    ¡Gracias! Te contactaremos a la brevedad.
+    {{ content.successMessage }}
   </p>
 </template>
 

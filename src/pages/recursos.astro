@@ -2,20 +2,16 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import SimplePageTemplate from "@templates/SimplePageTemplate.astro";
 import ResourceCard from "@molecules/ResourceCard.vue";
-import { resources } from "@lib/data/resources";
+import { t } from "@lib/i18n";
+
+const content = t();
 ---
 
-<BaseLayout
-  title="Recursos"
-  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
->
-  <SimplePageTemplate
-    title="Recursos"
-    intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  >
+<BaseLayout title={content.nav.resources} description={content.resources.metaDescription}>
+  <SimplePageTemplate title={content.resources.pageTitle} intro={content.resources.pageIntro}>
     <div class="resources-grid">
       {
-        resources.map((entry) => (
+        content.resources.items.map((entry) => (
           <ResourceCard
             term={entry.term}
             definition={entry.definition}

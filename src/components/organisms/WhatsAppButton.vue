@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { siteContact } from "@lib/navigation";
+import { t } from "@lib/i18n";
+
+const content = t();
 </script>
 
 <template>
@@ -11,7 +14,7 @@ import { siteContact } from "@lib/navigation";
   >
     <span class="whatsapp-button__avatar" aria-hidden="true">WA</span>
     <span class="whatsapp-button__text">
-      <span class="whatsapp-button__title">¿Necesitas ayuda?</span>
+      <span class="whatsapp-button__title">{{ content.whatsapp.helpLabel }}</span>
       <span class="whatsapp-button__value">{{ siteContact.phoneValue }}</span>
     </span>
   </a>
