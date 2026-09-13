@@ -2,9 +2,13 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import HeroSection from "@organisms/HeroSection.vue";
 import ServicesGrid from "@organisms/ServicesGrid.vue";
+import ResourceCard from "@molecules/ResourceCard.vue";
+import TeamMemberCard from "@molecules/TeamMemberCard.vue";
+import ContactForm from "@organisms/ContactForm.vue";
+import ContactInfoItem from "@molecules/ContactInfoItem.vue";
 import BaseHeading from "@atoms/BaseHeading.vue";
 import BaseText from "@atoms/BaseText.vue";
-import { siteName } from "@lib/navigation";
+import { siteName, siteContact } from "@lib/navigation";
 import { t } from "@lib/i18n";
 
 const content = t();
@@ -17,26 +21,139 @@ const content = t();
     highlight={content.home.highlight}
     description={content.home.description}
     ctaLabel={content.home.ctaLabel}
-    ctaHref="/contacto"
+    ctaHref="#contacto"
     client:visible
   />
 
-  <section class="container section">
-    <BaseHeading :level="2" size="lg" client:visible>
-      {content.home.servicesHeading}
-    </BaseHeading>
-    <BaseText tone="muted" client:visible>
-      {content.home.servicesIntro}
-    </BaseText>
-    <div class="section__grid">
-      <ServicesGrid services={content.services.items} client:visible />
+  <section id="servicios" class="section">
+    <div class="container section__inner">
+      <BaseHeading :level="2" size="lg" client:visible>
+        {content.services.pageTitle}
+      </BaseHeading>
+      <BaseText tone="muted" client:visible>
+        {content.services.pageIntro}
+      </BaseText>
+      <div class="section__grid">
+        <ServicesGrid services={content.services.items} client:visible />
+      </div>
+    </div>
+  </section>
+
+  <section id="nosotros" class="section section--muted">
+    <div class="container section__inner">
+      <BaseHeading :level="2" size="lg" client:visible>
+        {content.about.pageTitle}
+      </BaseHeading>
+      <BaseText tone="muted" client:visible>
+        {content.about.pageIntro}
+      </BaseText>
+      <div class="values">
+        <article class="values__card">
+          <BaseHeading :level="3" size="sm" tone="brand" client:visible>
+            {content.about.missionTitle}
+          </BaseHeading>
+          <BaseText client:visible>
+            {content.about.missionText}
+          </BaseText>
+        </article>
+        <article class="values__card values__card--inverse">
+          <BaseHeading :level="3" size="sm" tone="inverse" client:visible>
+            {content.about.visionTitle}
+          </BaseHeading>
+          <BaseText tone="inverse" client:visible>
+            {content.about.visionText}
+          </BaseText>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="equipo" class="section">
+    <div class="container section__inner">
+      <BaseHeading :level="2" size="lg" client:visible>
+        {content.team.pageTitle}
+      </BaseHeading>
+      <BaseText tone="muted" client:visible>
+        {content.team.pageIntro}
+      </BaseText>
+      <div class="team-list">
+        {
+          content.team.members.map((member) => (
+            <TeamMemberCard name={member.name} jobTitle={member.jobTitle} client:visible>
+              {member.bio}
+            </TeamMemberCard>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="recursos" class="section">
+    <div class="container section__inner">
+      <BaseHeading :level="2" size="lg" client:visible>
+        {content.resources.pageTitle}
+      </BaseHeading>
+      <BaseText tone="muted" client:visible>
+        {content.resources.pageIntro}
+      </BaseText>
+      <div class="resources-grid">
+        {
+          content.resources.items.map((entry) => (
+            <ResourceCard term={entry.term} definition={entry.definition} client:visible />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="section section--muted">
+    <div class="container section__inner">
+      <BaseHeading :level="2" size="lg" client:visible>
+        {content.contact.pageTitle}
+      </BaseHeading>
+      <BaseText tone="muted" client:visible>
+        {content.contact.pageIntro}
+      </BaseText>
+      <div class="contact-layout">
+        <ContactForm client:load />
+        <ContactInfoItem
+          label={content.header.contactLabel}
+          value={siteContact.phoneValue}
+          href={siteContact.phoneHref}
+          client:visible
+        />
+      </div>
+
+      <div class="faq">
+        <BaseHeading :level="3" size="md" client:visible>
+          {content.contact.faqHeading}
+        </BaseHeading>
+        <div class="faq__list">
+          {
+            content.contact.faq.map((item) => (
+              <details class="faq__item">
+                <summary class="faq__question">{item.question}</summary>
+                <p class="faq__answer">{item.answer}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .section {
-    padding-block: var(--space-10);
+    padding-block: var(--space-12);
+    scroll-margin-top: 5rem;
+  }
+
+  .section--muted {
+    background-color: var(--surface-muted);
+  }
+
+  .section__inner {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
@@ -44,5 +161,88 @@ const content = t();
 
   .section__grid {
     margin-top: var(--space-5);
+  }
+
+  .values {
+    margin-top: var(--space-5);
+    display: grid;
+    gap: var(--space-5);
+    max-width: 40rem;
+  }
+
+  .values__card {
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .values__card--inverse {
+    background-color: var(--brand-secondary);
+  }
+
+  .team-list {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .resources-grid {
+    margin-top: var(--space-5);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 720px) {
+    .resources-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .contact-layout {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .faq {
+    margin-top: var(--space-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 42rem;
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq__item {
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--surface-page);
+  }
+
+  .faq__question {
+    cursor: pointer;
+    font-weight: var(--weight-semibold);
+    color: var(--text-primary);
+  }
+
+  .faq__answer {
+    margin-top: var(--space-3);
+    color: var(--text-secondary);
   }
 </style>

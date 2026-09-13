@@ -43,7 +43,7 @@ const isMenuOpen = ref(false);
           :value="siteContact.phoneValue"
           :href="siteContact.phoneHref"
         />
-        <BaseButton href="/contacto" size="md">{{ content.header.ctaLabel }}</BaseButton>
+        <BaseButton href="#contacto" size="md">{{ content.header.ctaLabel }}</BaseButton>
         <button
           type="button"
           class="site-header__toggle"
@@ -70,6 +70,7 @@ const isMenuOpen = ref(false);
         :key="link.href"
         :href="link.href"
         :active="link.href === currentPath"
+        @click="isMenuOpen = false"
       >
         {{ content.nav[link.key] }}
       </NavItem>

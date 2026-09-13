@@ -15,11 +15,11 @@ export const siteName = "Carlos Garcia";
 
 export const primaryNav: NavLink[] = [
   { key: "home", href: "/" },
-  { key: "about", href: "/nosotros" },
-  { key: "services", href: "/servicios" },
-  { key: "team", href: "/equipo" },
-  { key: "resources", href: "/recursos" },
-  { key: "contact", href: "/contacto" },
+  { key: "about", href: "#nosotros" },
+  { key: "services", href: "#servicios" },
+  { key: "team", href: "#equipo" },
+  { key: "resources", href: "#recursos" },
+  { key: "contact", href: "#contacto" },
 ];
 
 export const siteContact = {

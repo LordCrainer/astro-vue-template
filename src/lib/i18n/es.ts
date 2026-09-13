@@ -110,7 +110,6 @@ export const es = {
       {
         name: "Nombre Apellido",
         jobTitle: "Cargo o rol",
-        href: "/equipo/nombre-apellido",
         bio: "Lorem ipsum · Dolor sit amet · Consectetur adipiscing",
       },
       {
